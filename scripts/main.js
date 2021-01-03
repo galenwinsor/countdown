@@ -38,9 +38,13 @@ function zoomLink() {
 function animateAmount() {
   var stepTime = (4000 / currentAmt);
   var amtObj = $('#amount');
-  var increment = currentAmt * (1 / 1000);
+  var increment = Math.floor(currentAmt * (1 / 1000));
   const timer = () => {
-    if (!(amt <= currentAmt)) return;
+    if (!(amt <= currentAmt)) {
+      setAmountHeader(currentAmt);
+      clearInterval(timer);
+      return;
+    }
     setAmountHeader(amt);
     amt += increment;
   }
@@ -96,15 +100,43 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+function adjustBackground() {
+  var width = window.innerWidth;
+
+  if (width > 1199) {
+    $('.background').css({
+      'background-image':'url("images/black_background.png")',
+      'background-position':'top right'
+    });
+  } else if (width < 1199 && width > 720) {
+    $('.background').css({
+      'background-image':'url("images/black_background_alt.png")',
+      'background-position':'top right'
+    });
+  } else if (width < 720 && width > 500) {
+    $('.background').css({
+      'background-image':'url("images/black_background_intermediate.png")',
+      'background-position':'top left'
+    })
+  } else {
+    $('.background').css({
+      'background-image':'url("images/black_background_mobile.png")',
+      'background-position':'top right'
+    })
+  }
+}
+
 window.onload = function() {
   countdownTimer();
   setInterval(countdownTimer, 1000);
   setPeachHeight();
   setProgress(true);
   animateAmount();
+  adjustBackground();
 }
 
 $(window).resize(function() {
   setPeachHeight();
   setProgress(false);
+  adjustBackground();
 })
