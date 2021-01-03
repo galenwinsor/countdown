@@ -23,7 +23,7 @@ body {
   position:fixed;
   top:0;
   z-index:-1;
-  background: url('../images/ossoff_gradient.png');
+  background: url('../images/black_background.png');
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -54,7 +54,7 @@ header > img {
 }
 
 main {
-  /* margin-top:2em; */
+  /* margin-top:-2em; */
   width:100%;
   min-height:max-content;
   display:flex;
@@ -72,7 +72,8 @@ main h1 {
 
 section {
   width:50%;
-  margin:2em;
+  margin:0 2em;
+  margin-bottom:2em;
   display:flex;
   flex-direction: column;
   justify-content: center;
@@ -80,15 +81,15 @@ section {
 }
 
 #countdown {
-  font-size: 4rem;
+  font-size: 3rem;
   padding: 0 0.2em;
-  margin:0 auto;
+  margin:-0.3em auto;
   /* background: var(--red); */
   color:white;
 }
 
 .time-slot {
-  background: var(--light-blue);
+  background: black;
   border-radius: 5px;
   color:white;
   padding:0 10px;
@@ -98,18 +99,30 @@ section {
   font-size: 2rem;
 }
 
+#amount {
+  margin-bottom:-0.4em;
+}
+
 #peach-holder {
   margin:0 auto;
   margin-top:2em;
   position:relative;
-  width:80%;
-  background-color: #187bd4;
-  border: 2px solid white;
-  border-radius: 5px;
+  width:50%;
+  color:black;
+  background-color:white;
+  border-radius:100%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #187bd4; */
+  /* border: 2px solid white;
+  border-radius: 5px; */
 }
 
 #peach-prog-centered {
-  display:block;
+  position:relative;
+  width:60%;
+  height:60%;
   display:flex;
   justify-content: center;
   align-items: center;
@@ -118,7 +131,7 @@ section {
 #peach-background {
   position:absolute;
   bottom:20px;
-  width:60%;
+  width:100%;
   background-color:white;
 }
 
@@ -126,13 +139,13 @@ section {
   position:absolute;
   display:block;
   bottom: 20px;
-  width:60%;
+  width:100%;
 }
 
 #progress-bar {
   position:absolute;
   bottom:20px;
-  width:60%;
+  width:100%;
   height:0px;
   background-color: #ff9047;
 }

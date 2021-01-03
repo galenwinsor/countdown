@@ -84,7 +84,7 @@ function setProgress(animate) {
 // bottom height: 7 px
 
 function setPeachHeight() {
-  $('#peach-holder').height($('#peach').height() + $('#amount').height() + 100);
+  $('#peach-holder').height($('#peach-holder').css('width').toString());
   $('#peach-background').height($('#peach').height());
 }
 
