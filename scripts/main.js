@@ -1,7 +1,16 @@
-var target, currentAmt;
+var target, currentAmt, amt;
 
 target = 25000;
-currentAmt = 12500;
+currentAmt = 24000;
+amt = 0;
+
+function formatTimes(time) {
+  if (time < 10) {
+    return '0' + `${time}`;
+  } else {
+    return `${time}`;
+  }
+}
 
 function countdownTimer() {
   const difference = +new Date("2021-01-05T19:00") - +new Date();
@@ -12,12 +21,30 @@ function countdownTimer() {
       minutes: Math.floor((difference / 1000 / 60) % 60),
       seconds: Math.floor((difference / 1000) % 60),
     };
-    remaining = Object.keys(parts).map(part => {
-    return `${parts[part]}`;
-  }).join(" : ");
+    $('#hours').text(`${formatTimes(parts['hours'])}`);
+    $('#minutes').text(`${formatTimes(parts['minutes'])}`);
+    $('#seconds').text(`${formatTimes(parts['seconds'])}`);
   }
 
-  document.getElementById("countdown").innerHTML = remaining;
+  $('#hours').append('<span class="time-spec">H</span>');
+  $('#minutes').append('<span class="time-spec">M</span>');
+  $('#seconds').append('<span class="time-spec">S</span>')
+}
+
+function zoomLink() {
+  return null;
+}
+
+function animateAmount() {
+  var stepTime = (2000 / currentAmt);
+  var amtObj = $('#amount');
+  var increment = currentAmt * (1 / 500);
+  const timer = () => {
+    if (!(amt <= currentAmt)) return;
+    setAmountHeader(amt);
+    amt += increment;
+  }
+  setInterval(timer, stepTime);
 }
 
 function setProgress(animate) {
@@ -46,7 +73,7 @@ function setProgress(animate) {
   if (animate) {
     $('#progress-bar').animate({
       'height': progHeight.toString() + 'px'
-    }, 1000);
+    }, 2000)
   } else {
     $('#progress-bar').height(progHeight.toString() + 'px');
   }
@@ -57,11 +84,12 @@ function setProgress(animate) {
 // bottom height: 7 px
 
 function setPeachHeight() {
-  $('#peach-holder').height($('#peach').height());
+  $('#peach-holder').height($('#peach').height() + $('#amount').height() + 100);
+  $('#peach-background').height($('#peach').height());
 }
 
-function setAmountHeader() {
-  $('#amount').text(numberWithCommas(currentAmt) + ' voters contacted!');
+function setAmountHeader(amt) {
+  $('#amount').text(numberWithCommas(amt) + ' votes and counting!');
 }
 
 function numberWithCommas(x) {
@@ -72,8 +100,8 @@ window.onload = function() {
   countdownTimer();
   setInterval(countdownTimer, 1000);
   setPeachHeight();
-  setAmountHeader();
   setProgress(true);
+  animateAmount();
 }
 
 $(window).resize(function() {
