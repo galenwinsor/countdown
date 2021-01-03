@@ -99,8 +99,22 @@ section {
   font-size: 2rem;
 }
 
-#amount {
-  margin-bottom:-0.4em;
+#peach-amount {
+  width:100%;
+  display:flex;
+  align-items: center;
+}
+
+.amount-centered {
+  width:40%;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.amount-centered h1 {
+  margin:0;
 }
 
 #peach-holder {
@@ -147,5 +161,5 @@ section {
   bottom:20px;
   width:100%;
   height:0px;
-  background-color: #ff9047;
+  background-color: #ffbc99;
 }

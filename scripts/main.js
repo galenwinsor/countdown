@@ -1,7 +1,7 @@
 var target, currentAmt, amt;
 
 target = 25000;
-currentAmt = 24000;
+currentAmt = 12500;
 amt = 0;
 
 function formatTimes(time) {
@@ -36,9 +36,9 @@ function zoomLink() {
 }
 
 function animateAmount() {
-  var stepTime = (2000 / currentAmt);
+  var stepTime = (4000 / currentAmt);
   var amtObj = $('#amount');
-  var increment = currentAmt * (1 / 500);
+  var increment = currentAmt * (1 / 1000);
   const timer = () => {
     if (!(amt <= currentAmt)) return;
     setAmountHeader(amt);
@@ -73,7 +73,7 @@ function setProgress(animate) {
   if (animate) {
     $('#progress-bar').animate({
       'height': progHeight.toString() + 'px'
-    }, 2000)
+    }, 4000)
   } else {
     $('#progress-bar').height(progHeight.toString() + 'px');
   }
@@ -89,7 +89,7 @@ function setPeachHeight() {
 }
 
 function setAmountHeader(amt) {
-  $('#amount').text(numberWithCommas(amt) + ' votes and counting!');
+  $('#amount').text(numberWithCommas(amt));
 }
 
 function numberWithCommas(x) {
