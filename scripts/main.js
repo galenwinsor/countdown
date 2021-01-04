@@ -1,8 +1,26 @@
+// TODO: make social media ready, prepare backend, double check DNS
+
 var target, currentAmt, amt;
 
 target = 25000;
 currentAmt = 12500;
 amt = 0;
+
+function getAmount() {
+  return new Promise((resolve,reject) => {
+    fetch('https://ossoff-therm-default-rtdb.firebaseio.com/amount.json')
+    .then(response => response.json())
+    .then(data => {
+      currentAmt = data;
+      console.log('Success:', data);
+      resolve(data);
+    })
+    .then((error) => {
+      console.log('Error:', error);
+      reject(error);
+    })
+  })
+}
 
 function formatTimes(time) {
   if (time < 10) {
@@ -46,19 +64,21 @@ function zoomLink() {
 }
 
 function animateAmount() {
+  console.log('Current amount:' + currentAmt);
   var stepTime = (4000 / currentAmt);
   var amtObj = $('#amount');
   var increment = Math.floor(currentAmt * (1 / 1000));
-  const timer = () => {
+  var timer = () => {
     if (!(amt <= currentAmt)) {
+      console.log('Current amount: ' + currentAmt);
       setAmountHeader(currentAmt);
-      clearInterval(timer);
+      clearInterval(inter);
       return;
     }
     setAmountHeader(amt);
     amt += increment;
   }
-  setInterval(timer, stepTime);
+  var inter = setInterval(timer, stepTime);
 }
 
 function setProgress(animate) {
@@ -131,7 +151,8 @@ function adjustBackground() {
   }
 }
 
-window.onload = function() {
+window.onload = async function() {
+  await getAmount();
   countdownTimer();
   setInterval(countdownTimer, 1000);
   setPeachHeight();
