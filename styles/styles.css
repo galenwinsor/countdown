@@ -120,18 +120,6 @@ section {
   color:white;
 }
 
-@media (max-width:500px) {
-  #countdown {
-    font-size: 2rem;
-  }
-
-  .main-centered {
-    display:flex;
-    justify-content: center;
-    align-items: center;
-  }
-}
-
 .time-slot {
   background: black;
   border-radius: 5px;
@@ -141,6 +129,32 @@ section {
 
 .time-spec {
   font-size: 2rem;
+}
+
+@media (max-width:500px) {
+  #countdown {
+    font-size: 2rem;
+  }
+
+  .time-spec {
+    font-size: 1rem;
+  }
+
+  .main-centered {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media (max-width:340px) {
+  #countdown {
+    font-size: 1.5rem;
+  }
+
+  .time-spec {
+    font-size: 1rem;
+  }
 }
 
 #peach-amount {

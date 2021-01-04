@@ -113,15 +113,10 @@ function adjustBackground() {
       'background-image':'url("images/black_background_alt.png")',
       'background-position':'top right'
     });
-  } else if (width < 720 && width > 500) {
+  } else {
     $('.background').css({
       'background-image':'url("images/black_background_intermediate.png")',
       'background-position':'top left'
-    })
-  } else {
-    $('.background').css({
-      'background-image':'url("images/black_background_mobile.png")',
-      'background-position':'top right'
     })
   }
 }
