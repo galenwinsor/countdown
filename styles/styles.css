@@ -25,6 +25,10 @@ body {
   color:white;
 }
 
+a {
+  color: var(--light-blue);
+}
+
 .container {
   position:relative;
   margin:0;

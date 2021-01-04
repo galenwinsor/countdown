@@ -13,9 +13,12 @@ function formatTimes(time) {
 }
 
 function countdownTimer() {
-  const difference = +new Date("2021-01-05T19:00") - +new Date();
+  const difference = +new Date("2021-01-05T19:00:00") - +new Date();
 
   if (difference > 0) {
+    if (difference < 900000) {
+      $('#closing').text("We're almost there! Thank you for all your hard work. Please join us for a thank you ").append('<a href=#>Zoom call!</a>');
+    }
     const parts = {
       hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
       minutes: Math.floor((difference / 1000 / 60) % 60),
@@ -24,6 +27,13 @@ function countdownTimer() {
     $('#hours').text(`${formatTimes(parts['hours'])}`);
     $('#minutes').text(`${formatTimes(parts['minutes'])}`);
     $('#seconds').text(`${formatTimes(parts['seconds'])}`);
+  } else {
+    $('#hours').text(formatTimes(0));
+    $('#minutes').text(formatTimes(0));
+    $('#seconds').text(formatTimes(0));
+    $('#closing').text('We did it! Thank you for all your hard work.');
+    $('amount-text').text('votes in!')
+    clearInterval(countdownTimer);
   }
 
   $('#hours').append('<span class="time-spec">H</span>');
