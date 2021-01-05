@@ -67,7 +67,7 @@ function animateAmount() {
   console.log('Current amount:' + currentAmt);
   var stepTime = (4000 / currentAmt);
   var amtObj = $('#amount');
-  var increment = Math.floor(currentAmt * (1 / 1000));
+  var increment = Math.ceil(currentAmt * (1 / 1000));
   var timer = () => {
     if (!(amt <= currentAmt)) {
       console.log('Current amount: ' + currentAmt);
@@ -123,6 +123,7 @@ function setPeachHeight() {
 }
 
 function setAmountHeader(amt) {
+  console.log('Amount received by setheader:' + amt);
   $('#amount').text(numberWithCommas(amt));
 }
 
