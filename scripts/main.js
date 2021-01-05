@@ -132,8 +132,14 @@ function numberWithCommas(x) {
 
 function adjustBackground() {
   var width = window.innerWidth;
+  var height = window.innerHeight;
 
-  if (width > 1199) {
+  if (width > 1199 && ((width / height) < (1274 / 719))) {
+    $('.background').css({
+      'background-image':'url("images/black_background_alt.png")',
+      'background-position':'top right'
+    });
+  } else if (width > 1199) {
     $('.background').css({
       'background-image':'url("images/black_background.png")',
       'background-position':'top right'
