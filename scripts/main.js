@@ -12,11 +12,9 @@ function getAmount() {
     .then(response => response.json())
     .then(data => {
       currentAmt = data;
-      console.log('Success:', data);
       resolve(data);
     })
     .then((error) => {
-      console.log('Error:', error);
       reject(error);
     })
   })
@@ -64,13 +62,11 @@ function zoomLink() {
 }
 
 function animateAmount() {
-  console.log('Current amount:' + currentAmt);
   var stepTime = (4000 / currentAmt);
   var amtObj = $('#amount');
   var increment = Math.ceil(currentAmt * (1 / 1000));
   var timer = () => {
     if (!(amt <= currentAmt)) {
-      console.log('Current amount: ' + currentAmt);
       setAmountHeader(currentAmt);
       clearInterval(inter);
       return;
@@ -123,7 +119,6 @@ function setPeachHeight() {
 }
 
 function setAmountHeader(amt) {
-  console.log('Amount received by setheader:' + amt);
   $('#amount').text(numberWithCommas(amt));
 }
 
