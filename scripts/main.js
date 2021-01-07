@@ -1,8 +1,24 @@
+// TODO: make social media ready, prepare backend, double check DNS
+
 var target, currentAmt, amt;
 
 target = 25000;
 currentAmt = 12500;
 amt = 0;
+
+function getAmount() {
+  return new Promise((resolve,reject) => {
+    fetch('https://ossoff-therm-default-rtdb.firebaseio.com/amount.json')
+    .then(response => response.json())
+    .then(data => {
+      currentAmt = data;
+      resolve(data);
+    })
+    .then((error) => {
+      reject(error);
+    })
+  })
+}
 
 function formatTimes(time) {
   if (time < 10) {
@@ -48,17 +64,17 @@ function zoomLink() {
 function animateAmount() {
   var stepTime = (4000 / currentAmt);
   var amtObj = $('#amount');
-  var increment = Math.floor(currentAmt * (1 / 1000));
-  const timer = () => {
+  var increment = Math.ceil(currentAmt * (1 / 1000));
+  var timer = () => {
     if (!(amt <= currentAmt)) {
       setAmountHeader(currentAmt);
-      clearInterval(timer);
+      clearInterval(inter);
       return;
     }
     setAmountHeader(amt);
     amt += increment;
   }
-  setInterval(timer, stepTime);
+  var inter = setInterval(timer, stepTime);
 }
 
 function setProgress(animate) {
@@ -112,8 +128,14 @@ function numberWithCommas(x) {
 
 function adjustBackground() {
   var width = window.innerWidth;
+  var height = window.innerHeight;
 
-  if (width > 1199) {
+  if (width > 1199 && ((width / height) < (1274 / 719))) {
+    $('.background').css({
+      'background-image':'url("images/black_background_alt.png")',
+      'background-position':'top right'
+    });
+  } else if (width > 1199) {
     $('.background').css({
       'background-image':'url("images/black_background.png")',
       'background-position':'top right'
@@ -131,7 +153,8 @@ function adjustBackground() {
   }
 }
 
-window.onload = function() {
+window.onload = async function() {
+  await getAmount();
   countdownTimer();
   setInterval(countdownTimer, 1000);
   setPeachHeight();
