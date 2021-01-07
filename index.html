@@ -3,39 +3,56 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>Counting Down!</title>
+    <title>Counting Down to Victory!</title>
+    <link rel="icon" href="favicon.ico">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@200&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@200&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
     <script src="scripts/main.js"></script>
   </head>
   <body>
-    <header>
-      <img src="images/ossof_logo.png" alt="">
-      <div class="header-centered">
-        <h1>HEALTH. JOBS. JUSTICE.</h1>
-      </div>
-    </header>
-    <main>
-      <h1>Counting down to victory!</h1>
-      <div class="main-centered">
-        <section>
-          <h1 id="amount"></h1>
-          <div id="peach-holder">
-            <div id="progress-bar">
-            </div>
-            <img id="peach" src="images/peach_black.png" alt="">
-          </div>
-        </section>
-        <section>
-          <div id="countdown">
-          </div>
-        </section>
-      </div>
-    </main>
-    <footer>
+    <div class="container">
+      <div class="background">
 
-    </footer>
+      </div>
+      <header>
+        <img src="images/ossof_logo.png" alt="">
+        <div class="header-centered">
+          <h1>HEALTH. JOBS. JUSTICE.</h1>
+        </div>
+      </header>
+      <main>
+        <div class="main-centered">
+          <section>
+            <h1 id="closing">Polls close in</h1>
+            <div id="countdown">
+              <span class="time-slot" id="hours">
+
+              </span> : <span class="time-slot" id="minutes">
+                <span class="time-spec">M</span>
+              </span> : <span class="time-slot" id="seconds">
+                <span class="time-spec">S</span>
+              </span>
+            </div>
+            <div id="peach-amount">
+              <div class="amount-centered">
+                <h1 id="amount"></h1>
+                <h1 id="amount-text">votes and counting!</h1>
+              </div>
+              <div id="peach-holder">
+                <div id="peach-prog-centered">
+                  <div id="peach-background">
+                  </div>
+                  <div id="progress-bar">
+                  </div>
+                  <img id="peach" src="images/peach_white.png" alt="">
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
   </body>
 </html>

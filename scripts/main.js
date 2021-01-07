@@ -1,23 +1,64 @@
-var target, currentAmt;
+var target, currentAmt, amt;
 
 target = 25000;
 currentAmt = 12500;
+amt = 0;
+
+function formatTimes(time) {
+  if (time < 10) {
+    return '0' + `${time}`;
+  } else {
+    return `${time}`;
+  }
+}
 
 function countdownTimer() {
-  const difference = +new Date("2021-01-05T19:00") - +new Date();
+  const difference = +new Date("2021-01-05T19:00:00") - +new Date();
 
   if (difference > 0) {
+    if (difference < 900000) {
+      $('#closing').text("We're almost there! Thank you for all your hard work. Please join us for a thank you ").append('<a href=#>Zoom call!</a>');
+    }
     const parts = {
       hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
       minutes: Math.floor((difference / 1000 / 60) % 60),
       seconds: Math.floor((difference / 1000) % 60),
     };
-    remaining = Object.keys(parts).map(part => {
-    return `${parts[part]}`;
-  }).join(" : ");
+    $('#hours').text(`${formatTimes(parts['hours'])}`);
+    $('#minutes').text(`${formatTimes(parts['minutes'])}`);
+    $('#seconds').text(`${formatTimes(parts['seconds'])}`);
+  } else {
+    $('#hours').text(formatTimes(0));
+    $('#minutes').text(formatTimes(0));
+    $('#seconds').text(formatTimes(0));
+    $('#closing').text('We did it! Thank you for all your hard work.');
+    $('amount-text').text('votes in!')
+    clearInterval(countdownTimer);
   }
 
-  document.getElementById("countdown").innerHTML = remaining;
+  $('#hours').append('<span class="time-spec">H</span>');
+  $('#minutes').append('<span class="time-spec">M</span>');
+  $('#seconds').append('<span class="time-spec">S</span>')
+}
+
+function zoomLink() {
+  return null;
+}
+
+function animateAmount() {
+  var stepTime = (4000 / currentAmt);
+  var amtObj = $('#amount');
+  var increment = Math.floor(currentAmt * (1 / 1000));
+  const timer = () => {
+    if (!(amt <= currentAmt)) {
+      setAmountHeader(currentAmt);
+      clearInterval(timer);
+      return;
+    }
+    setAmountHeader(amt);
+    amt += increment;
+  }
+  setInterval(timer, stepTime);
 }
 
 function setProgress(animate) {
@@ -46,7 +87,7 @@ function setProgress(animate) {
   if (animate) {
     $('#progress-bar').animate({
       'height': progHeight.toString() + 'px'
-    }, 1000);
+    }, 4000)
   } else {
     $('#progress-bar').height(progHeight.toString() + 'px');
   }
@@ -57,26 +98,50 @@ function setProgress(animate) {
 // bottom height: 7 px
 
 function setPeachHeight() {
-  $('#peach-holder').height($('#peach').height());
+  $('#peach-holder').height($('#peach-holder').css('width').toString());
+  $('#peach-background').height($('#peach').height());
 }
 
-function setAmountHeader() {
-  $('#amount').text(numberWithCommas(currentAmt) + ' voters contacted!');
+function setAmountHeader(amt) {
+  $('#amount').text(numberWithCommas(amt));
 }
 
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+function adjustBackground() {
+  var width = window.innerWidth;
+
+  if (width > 1199) {
+    $('.background').css({
+      'background-image':'url("images/black_background.png")',
+      'background-position':'top right'
+    });
+  } else if (width < 1199 && width > 720) {
+    $('.background').css({
+      'background-image':'url("images/black_background_alt.png")',
+      'background-position':'top right'
+    });
+  } else {
+    $('.background').css({
+      'background-image':'url("images/black_background_intermediate.png")',
+      'background-position':'top left'
+    })
+  }
+}
+
 window.onload = function() {
   countdownTimer();
   setInterval(countdownTimer, 1000);
   setPeachHeight();
-  setAmountHeader();
   setProgress(true);
+  animateAmount();
+  adjustBackground();
 }
 
 $(window).resize(function() {
   setPeachHeight();
   setProgress(false);
+  adjustBackground();
 })
